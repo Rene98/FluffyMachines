@@ -40,6 +40,7 @@ import me.mrCookieSlime.Slimefun.Lists.RecipeType;
 import me.mrCookieSlime.Slimefun.Objects.SlimefunItem.SlimefunItem;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
 import org.bukkit.Material;
+import org.bukkit.entity.Item;
 import org.bukkit.inventory.ItemStack;
 
 import javax.annotation.Nonnull;
@@ -158,10 +159,45 @@ public final class FluffyItemSetup {
         // Tools
         new WateringCan(FluffyItems.fluffymachines, FluffyItems.WATERING_CAN,
             RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+            new ItemStack(Material.STONE), null, new ItemStack(Material.STONE),
+            new ItemStack(Material.STONE), new ItemStack(Material.WATER_BUCKET), new ItemStack(Material.STONE),
+            null, new ItemStack(Material.STONE), null
+        }, WateringCan.canType.STONE).register(plugin);
+
+        new WateringCan(FluffyItems.fluffymachines, FluffyItems.WATERING_CAN_IRON,
+            RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
             new ItemStack(Material.IRON_INGOT), null, new ItemStack(Material.IRON_INGOT),
-            new ItemStack(Material.IRON_INGOT), new ItemStack(Material.BUCKET), new ItemStack(Material.IRON_INGOT),
+            new ItemStack(Material.IRON_INGOT), FluffyItems.WATERING_CAN, new ItemStack(Material.IRON_INGOT),
             null, new ItemStack(Material.IRON_INGOT), null
-        }).register(plugin);
+        }, WateringCan.canType.IRON ).register(plugin);
+
+        new WateringCan(FluffyItems.fluffymachines, FluffyItems.WATERING_CAN_GOLD,
+            RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+            SlimefunItems.GOLD_16K, null, SlimefunItems.GOLD_16K,
+            SlimefunItems.GOLD_16K, FluffyItems.WATERING_CAN_IRON, SlimefunItems.GOLD_16K,
+            null, SlimefunItems.GOLD_16K, null
+        }, WateringCan.canType.GOLD).register(plugin);
+
+        new WateringCan(FluffyItems.fluffymachines, FluffyItems.WATERING_CAN_DIAMOND,
+            RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+            SlimefunItems.SYNTHETIC_DIAMOND, null, SlimefunItems.SYNTHETIC_DIAMOND,
+            SlimefunItems.SYNTHETIC_DIAMOND, FluffyItems.WATERING_CAN_GOLD, SlimefunItems.SYNTHETIC_DIAMOND,
+            null, SlimefunItems.SYNTHETIC_DIAMOND, null
+        }, WateringCan.canType.DIAMOND).register(plugin);
+
+        new WateringCan(FluffyItems.fluffymachines, FluffyItems.WATERING_CAN_EMERALD,
+            RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+            SlimefunItems.SYNTHETIC_EMERALD, null, SlimefunItems.SYNTHETIC_EMERALD,
+            SlimefunItems.SYNTHETIC_EMERALD, FluffyItems.WATERING_CAN_DIAMOND, SlimefunItems.SYNTHETIC_EMERALD,
+            null, SlimefunItems.SYNTHETIC_EMERALD, null
+        }, WateringCan.canType.EMERALD).register(plugin);
+
+        new WateringCan(FluffyItems.fluffymachines, FluffyItems.WATERING_CAN_NETHERITE,
+            RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
+            null, null, null,
+            null, FluffyItems.WATERING_CAN_EMERALD, new ItemStack(Material.NETHERITE_INGOT),
+            null, null, null
+        }, WateringCan.canType.NETHERITE).register(plugin);
 
         new Scythe(FluffyItems.fluffymachines, FluffyItems.SCYTHE, RecipeType.ENHANCED_CRAFTING_TABLE, new ItemStack[] {
             null, new ItemStack(Material.IRON_INGOT), new ItemStack(Material.IRON_INGOT),

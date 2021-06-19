@@ -1,5 +1,6 @@
 package io.ncbpfluffybear.fluffymachines.items.tools;
 
+import io.github.thebusybiscuit.slimefun4.core.attributes.NotPlaceable;
 import io.github.thebusybiscuit.slimefun4.implementation.SlimefunPlugin;
 import me.mrCookieSlime.Slimefun.Objects.Category;
 import me.mrCookieSlime.Slimefun.api.SlimefunItemStack;
@@ -39,7 +40,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class WateringCan extends SimpleSlimefunItem<ItemUseHandler> {
+public class WateringCan extends SimpleSlimefunItem<ItemUseHandler> implements NotPlaceable {
 
     public final ItemSetting<Integer> maxUses = new ItemSetting<>(this, "max-uses", 10);
     public final ItemSetting<Double> sugarCaneSuccessChance = new ItemSetting<>(this, "sugar-cane-success-chance",
@@ -52,9 +53,18 @@ public class WateringCan extends SimpleSlimefunItem<ItemUseHandler> {
     private static final int MAX_SUGAR_GROW_HEIGHT = 5;
     private static final NamespacedKey usageKey = new NamespacedKey(FluffyMachines.getInstance(), "watering_can_usage");
 
-    public WateringCan(Category category, SlimefunItemStack item, RecipeType recipeType, ItemStack[] recipe) {
-        super(category, item, recipeType, recipe);
+    private final canType canType;
+    private static final int STONE_SIZE = 64;
+    private static final int IRON_SIZE = 100;
+    private static final int GOLD_SIZE = 250;
+    private static final int DIAMOND_SIZE = 400;
+    private static final int EMERALD_SIZE = 650;
+    private static final int NETHERITE_SIZE = 1000;
 
+    public WateringCan(Category category, SlimefunItemStack item, RecipeType recipeType,
+                       ItemStack[] recipe, canType size) {
+        super(category, item, recipeType, recipe);
+        this.canType = size;
         addItemSetting(maxUses);
         addItemSetting(sugarCaneSuccessChance);
         addItemSetting(cropSuccessChance);
@@ -212,7 +222,7 @@ public class WateringCan extends SimpleSlimefunItem<ItemUseHandler> {
         } else if (updateType == 2) {
             p.playSound(p.getLocation(), Sound.ENTITY_DROWNED_DEATH_WATER, 0.5F, 1F);
             Utils.send(p, "&aYou have filled your Watering Can");
-            usesLeft = can.getUses().getValue();
+            usesLeft = can.canType.size();
 
         } else if (updateType == 3) {
             if (usesLeft == 0) {
@@ -258,4 +268,21 @@ public class WateringCan extends SimpleSlimefunItem<ItemUseHandler> {
         return this.maxUses;
     }
 
+    public enum canType {
+        STONE (STONE_SIZE),
+        IRON (IRON_SIZE),
+        GOLD (GOLD_SIZE),
+        DIAMOND (DIAMOND_SIZE),
+        EMERALD (EMERALD_SIZE),
+        NETHERITE (NETHERITE_SIZE);
+
+        private final int size;
+        canType(int size) {
+            this.size = size;
+        }
+
+        private int size() {
+            return size;
+        }
+    }
 }
